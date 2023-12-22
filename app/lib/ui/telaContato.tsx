@@ -12,7 +12,7 @@ export default function TelaContato() {
     const handleSelect = async () => {
         const response = await fetch('/api/contatos');
         const data = await response.json();
-        setContatos(data.contatos);
+        setContatos(data.contatos); 
     }
 
     useEffect(() => {
