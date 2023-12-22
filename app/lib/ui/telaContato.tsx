@@ -19,17 +19,17 @@ export default function TelaContato() {
         handleSelect();
     }, []);
 
-    const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-        const fieldName = event.target.name;
-        const fieldValue = event.target.value;
+    const handleChange = (event : React.FormEvent<EventTarget>) => {
+        let target = event.target as HTMLInputElement;
+        const fieldName = target.name;
+        const fieldValue = target.value;
         setContato((objetoAtual) => {
             return { ...objetoAtual, [fieldName]: fieldValue }
         });
         setMensagem("");
     };
 
-    const handleSave = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
+    const handleSave = async (event: React.FormEvent<EventTarget>) => {
         if (contato.id.length > 0) {
             await fetch(`/api/contatos/${contato.id}`, {
                 method: 'PUT',
@@ -55,9 +55,9 @@ export default function TelaContato() {
         handleSelect();
     }
 
-    const handleEdit = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        let id = event.target.value;
+    const handleEdit = async (event: React.FormEvent<EventTarget>) => {
+        let target = event.target as HTMLButtonElement;
+        let id = target.value;
         await fetch(`/api/contatos/${id}`, {
             method: 'GET',
         })
@@ -65,9 +65,9 @@ export default function TelaContato() {
             .then(data => setContato(data.contato));
     }
 
-    const handleDelete = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        let id = event.target.value;
+    const handleDelete = async (event: React.FormEvent<EventTarget>) => {
+        let target = event.target as HTMLButtonElement;
+        let id = target.value;
         await fetch(`/api/contatos/${id}`, {
             method: 'DELETE',
         }).then(response => response.json()).then(data => setMensagem(data.mensagem));
