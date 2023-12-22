@@ -19,7 +19,7 @@ export default function TelaContato() {
         handleSelect();
     }, []);
 
-    const handleChange = (event) => {
+    const handleChange = (event: { target: { name: any; value: any; }; }) => {
         const fieldName = event.target.name;
         const fieldValue = event.target.value;
         setContato((objetoAtual) => {
@@ -28,7 +28,7 @@ export default function TelaContato() {
         setMensagem("");
     };
 
-    const handleSave = async (event) => {
+    const handleSave = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         if (contato.id.length > 0) {
             await fetch(`/api/contatos/${contato.id}`, {
@@ -55,7 +55,7 @@ export default function TelaContato() {
         handleSelect();
     }
 
-    const handleEdit = async (event) => {
+    const handleEdit = async (event: { preventDefault: () => void; target: { value: any; }; }) => {
         event.preventDefault();
         let id = event.target.value;
         await fetch(`/api/contatos/${id}`, {
@@ -65,7 +65,7 @@ export default function TelaContato() {
             .then(data => setContato(data.contato));
     }
 
-    const handleDelete = async (event) => {
+    const handleDelete = async (event: { preventDefault: () => void; target: { value: any; }; }) => {
         event.preventDefault();
         let id = event.target.value;
         await fetch(`/api/contatos/${id}`, {
